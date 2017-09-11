@@ -2,5 +2,5 @@
     <p class="title_block">
         Test
     </p>
-    Esto es contenido del componente nuevo
+    Esto es contenido del componente nuevo {$vertexto}
 </div>

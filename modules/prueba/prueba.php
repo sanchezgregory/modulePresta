@@ -38,6 +38,9 @@ class prueba extends Module
 
     public function hookLeftColumn($params)
     {
+        global $smarty;
+        $texto = Configuration::get('MODULOPRUEBA_TEXTO');
+        $smarty->assign('vertexto', $texto);
         return $this->display(__FILE__, 'prueba.tpl');
     }
 
@@ -65,7 +68,7 @@ class prueba extends Module
                         'type' => 'text',
                         'label' => $this->l('Pon Tu text'),
                         'name' => 'moduloprueba_texto',
-                        'desc' => $this->l('introduce un trexto a vicualizar'),
+                        'desc' => $this->l('introduce un texto a visualizar'),
                     )
                 ),
                 'submit' => array(
@@ -75,6 +78,27 @@ class prueba extends Module
         );
         $helper = new HelperForm();
         $helper->show_toolbar = false;
+        $helper->table = $this->table;
+        $lang = new Language((int)Configuration::get('PS_LANG_DEFAULT'));
+        $helper->default_form_language = $lang->id;
+        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
+        $helper->identifier = $this->identifier;
+        $helper->submit_action = 'submitModule';
+        $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false).'&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name;
+        $helper->token = Tools::getAdminTokenLite('AdminModules');
+        $helper->tpl_vars = array(
+            'fields_value' => $this->getConfigFieldsValues(),
+            'languages' => $this->context->controller->getLanguages(),
+            'id_language' => $this->context->language->id
+        );
 
+        return $helper->generateForm(array($fields_form));
+
+
+    }
+
+    public function getConfigFieldsValues()
+    {
+        return array('moduloprueba_texto' => Tools::getValue('moduloprueba_texto', Configuration::get('MODULOPRUEBA_TEXTO')));
     }
 }
