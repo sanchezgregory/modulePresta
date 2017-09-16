@@ -20,6 +20,12 @@ class Fotocliente extends Module
 
     public function getContent()
     {
+        if (Tools::isSubmit("fotocliente_form")) {
+            $enable = Tools::getValue("enable_comment");
+            Configuration::updateValue("FOTOCLIENTE_COMMENTS", $enable);
+        }
+        $enable = Configuration::get("FOTOCLIENTE_COMMENTS");
+        $this->context->smarty->assign("enable", $enable);
         return $this->display(__FILE__,"getContent.tpl");
     }
 
