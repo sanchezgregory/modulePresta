@@ -47,7 +47,7 @@ class prueba extends Module
     public function getContent()
     {
         $output='';
-        if (Tools::isSubmit()) {
+        if (Tools::isSubmit('submitModule')) {
             Configuration::updateValue('MODULOPRUEBA_TEXTO', Tools::getValue('moduloprueba_texto', ''));
             Tools::redirectAdmin($this->context->link->getAdminLink('AdminModules').'&configure='.$this->name.'&tab_module='.$this->tab.'$conf=4&module_name='.$this->name);
         }
