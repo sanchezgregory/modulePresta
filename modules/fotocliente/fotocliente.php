@@ -35,6 +35,9 @@ class Fotocliente extends Module
     public function install()
     {
         if (!parent::install()) return false;
+
+        $this->registerHook("displayProductTabContent");
+
         return true;
     }
 
@@ -42,5 +45,10 @@ class Fotocliente extends Module
     {
         if (!parent::uninstall()) return false;
         return true;
+    }
+
+    public function hookDisplayProductTabContent($params)
+    {
+        return "si muestra el contenido";
     }
 }
