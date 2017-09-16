@@ -59,7 +59,7 @@ class prueba extends Module
     {
         $fields_form = array(
             'form' => array(
-              'legend' => array(
+               'legend' => array(
                   'title' => $this->l('Configuration'),
                   'icon' => 'icon.cogs',
               ),
