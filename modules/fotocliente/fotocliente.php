@@ -49,6 +49,6 @@ class Fotocliente extends Module
 
     public function hookDisplayProductTabContent($params)
     {
-        return "si muestra el contenido";
+        return $this->display(__FILE__,'displayProductTabContent.tpl');
     }
 }
