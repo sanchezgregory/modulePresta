@@ -15,6 +15,7 @@
                     <img src="../img/admin/disabled.gif" alt="">
                     <input type="radio" id="enabled_comment_0" name="enable_comment" {if ($enable == '0')} checked {/if} value="0">
                     <label for="enabled_comment_0" class="t">No</label>
+
                 </div>
             </div>
             <div class="panel-footer">

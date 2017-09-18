@@ -26,6 +26,7 @@ class Fotocliente extends Module
         }
         $enable = Configuration::get("FOTOCLIENTE_COMMENTS");
         $this->context->smarty->assign("enable", $enable);
+
         return $this->display(__FILE__,"getContent.tpl");
     }
 
@@ -69,6 +70,8 @@ class Fotocliente extends Module
 
     public function hookDisplayProductTabContent($params)
     {
+        $enable_comments = Configuration::get('FOTOCLIENTE_COMMENTS');
+        $this->context->smarty->assign('enable_comments', $enable_comments);
         return $this->display(__FILE__,'displayProductTabContent.tpl');
     }
 }
