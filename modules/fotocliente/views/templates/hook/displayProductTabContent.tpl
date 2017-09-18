@@ -7,7 +7,7 @@
         </div>
         <div class="form-group col-xs-12 col-md-8">
             <label for="comment">Comentario:</label>
-            <textarea name="comment" id="comment" class="form-control">
+            <textarea name="comment" id="comment" class="form-control" placeholder="escriba su comentario aqui">
         </div>
         <div class="submit fotocliente_bloque">
             <button type="submit" name="fotocliente_submit_foto" class="btn btn-default button-medium">

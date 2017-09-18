@@ -36,15 +36,35 @@ class Fotocliente extends Module
     {
         if (!parent::install()) return false;
 
+        Configuration::updateValue('FOTOCLI_COMMENTS','1');
         $this->registerHook("displayProductTabContent");
 
-        return true;
+        $result = $this->installDB();
+        return $result;
+    }
+
+    public function installDB()
+    {
+        return Db::getInstance()->execute("CREATE TABLE IF NOT EXISTS "._DB_PREFIX_."fotocliente_item (
+            id_fotocliente_item int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            id_product int(11) NOT NULL,
+            foto VARCHAR(255) NOT NULL,
+            comment text NOT NULL)ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1");
     }
 
     public function uninstall()
     {
         if (!parent::uninstall()) return false;
-        return true;
+
+        Configuration::deleteByName('FOTOCLI_COMMENTS');
+        $result = $this->uninstallDb();
+
+        return $result;
+    }
+
+    public function uninstallDb()
+    {
+        return Db::getInstance()->execute('DROP TABLE "._DB_PREFIX."fotocliente_item');
     }
 
     public function hookDisplayProductTabContent($params)
