@@ -1,5 +1,7 @@
 <?php
 
+require_once (dirname(__FILE__).'/classes/fotoclienteObj.php');
+
 class Fotocliente extends Module
 {
     public function __construct()
@@ -85,7 +87,21 @@ class Fotocliente extends Module
                         if (!$copy) {
                             $this->context->smarty->assign('errorForm', 'Error  copiando la imagen: '.$path.$foto['name']);
                         } else {
+                            $id_product = Tools::getValue('id_product');
+                            $pathfoto = "upload/".$foto['name'];
+                            $comentario = Tools::getValue('comment');
 
+                            $fotoObj = new fotoclienteObj();
+                            $fotoObj->id_product = (int)$id_product;
+                            $fotoObj->foto = $pathfoto;
+                            $fotoObj->comment = pSQL($comentario);
+                            $result = $fotoObj->add();
+
+                            if ($result) {
+                                $this->context->smarty->assign('savedForm','1');
+                            } else {
+                                $this->context->smarty->assign('errorForm','No se ha guardado la imagen en la BD');
+                            }
                         }
                     } else {
 

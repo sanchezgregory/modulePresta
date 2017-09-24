@@ -2,6 +2,9 @@
 {if (isset($errorForm))}
     <div class="alert alert-danger"> {$errorForm}</div>
 {/if}
+{if (isset($savedForm))}
+    <div class="alert alert-success">Imagen almacenada</div>
+{/if}
 <div class="fotocliente_bloque">
     <form action="" enctype="multipart/form-data" method="post" id="comment-form">
         <div class="form-group col-xs-12 col-md-4">
