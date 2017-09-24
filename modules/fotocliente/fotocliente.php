@@ -65,11 +65,36 @@ class Fotocliente extends Module
 
     public function uninstallDb()
     {
-        return Db::getInstance()->execute('DROP TABLE "._DB_PREFIX."fotocliente_item');
+        return Db::getInstance()->execute('DROP TABLE "._DB_PREFIX_."fotocliente_item');
     }
 
     public function hookDisplayProductTabContent($params)
     {
+        // --> validando y guardando imagen del frontend.
+        if (Tools::isSubmit('fotocliente_submit_foto')) {
+            if (isset($_FILES["foto"])) {
+                $foto = $_FILES["foto"];
+                if ($foto['name'] != "") {
+                    $allowed =array('image/gif', 'image/jpeg', 'image/jpg', 'image/png');
+
+                    if (in_array($foto['type'], $allowed)) {
+                        $path = './upload/';
+                        list($width, $height) = getimagesize($foto['tmp_name']);
+                        $propo = 400/$width;
+                        $copy = ImageManager::resize($foto['tmp_name'],$path.$foto['name'],400,$propo=$height,$foto['type']);
+                        if (!$copy) {
+                            $this->context->smarty->assign('errorForm', 'Error  copiando la imagen: '.$path.$foto['name']);
+                        } else {
+
+                        }
+                    } else {
+
+                        $this->context->smarty->assign('errorForm', 'Formato de imagen no valida');
+                    }
+                }
+            }
+        }
+        // ----------------------------------------------
         $enable_comments = Configuration::get('FOTOCLIENTE_COMMENTS');
         $this->context->smarty->assign('enable_comments', $enable_comments);
         return $this->display(__FILE__,'displayProductTabContent.tpl');
